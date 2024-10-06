@@ -1,5 +1,6 @@
 import { client } from '../sanity/lib/client';
 
+// Define the structure of a post
 interface Post {
   // Define the structure of a post
   id: number;
