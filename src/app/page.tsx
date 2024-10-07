@@ -1,26 +1,41 @@
-import { client } from '../sanity/lib/client';
+'use client'
 
-// Define the structure of a post
-interface Post {
-  // Define the structure of a post
-  id: number;
-  title: string;
-  // Add other relevant fields
-}
+// pages/index.tsx
+import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
+import Profile from './components/Profile';
+import BlogPreview from './components/BlogPreview';
+import Footer from './components/Footer';
+// Import CSS
+import './styles/global.css';
+import './styles/theme.css';
 
+const Home = () => {
+  const [theme, setTheme] = useState('light');
 
-export default async function Home() {
-  const posts = await client.fetch(`*[_type == "post"]`); // Fetch data from Sanity
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1 className="text-4xl font-bold">Hello World</h1>
-        {posts.map((post: Post) => (
-          <div key={post.id}>{post.title}</div>
-        ))}
+    <div data-theme={theme}>
+      <Header toggleTheme={toggleTheme} />
+      <main>
+        <Profile />
+        <BlogPreview />
       </main>
-
+      <Footer />
     </div>
   );
-}
+};
+
+export default Home;

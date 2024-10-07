@@ -1,0 +1,14 @@
+/* styles/theme.css */
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #121212;
+    --accent-color: #03DAC6;
+  }
+  
+  [data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --accent-color: #BB86FC;
+  }
+  
