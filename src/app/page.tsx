@@ -7,8 +7,8 @@ import Profile from './components/Profile';
 import BlogPreview from './components/BlogPreview';
 import Footer from './components/Footer';
 // Import CSS
-import './styles/global.css';
 import './styles/theme.css';
+import Skills from './components/Skills';
 
 const Home = () => {
   const [theme, setTheme] = useState('light');
@@ -31,6 +31,7 @@ const Home = () => {
       <Header toggleTheme={toggleTheme} />
       <main>
         <Profile />
+        <Skills />
         <BlogPreview />
       </main>
       <Footer />
