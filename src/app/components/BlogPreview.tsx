@@ -8,17 +8,19 @@ const BlogPreview = () => {
     ];
 
     return (
-        <section id="blog">
-            <h2>Blog</h2>
-            <ul>
-                {posts.map((post, index) => (
-                    <li key={index}>
-                        <h3>{post.title}</h3>
-                        <p>{post.excerpt}</p>
-                        <small>{post.date}</small>
-                    </li>
-                ))}
-            </ul>
+        <section id="blog" className="bg-gray-100 py-12 px-4">
+            <div className="container mx-auto">
+                <h2 className="text-3xl font-bold text-center mb-8">Blog</h2>
+                <ul className="space-y-8">
+                    {posts.map((post, index) => (
+                        <li key={index} className="bg-white p-6 rounded-lg shadow-md">
+                            <h3 className="text-2xl font-semibold mb-2">{post.title}</h3>
+                            <p className="text-gray-700 mb-4">{post.excerpt}</p>
+                            <small className="text-gray-500">{post.date}</small>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </section>
     );
 };
