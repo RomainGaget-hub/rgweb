@@ -1,7 +1,11 @@
+import React from 'react';
+
 const Profile = () => {
     return (
         <section id="profile" className="bg-gray-800 text-white py-20 px-4 text-center">
-            <h1 className="text-4xl font-bold mb-4">Hi, I&#39;m Romain</h1>
+            <h1 className="text-4xl font-bold mb-4">
+                Hi, I&#39;m Romain
+            </h1>
             <h2 className="text-2xl font-semibold mb-6">Experienced Full Stack Developer</h2>
             <p className="max-w-2xl mx-auto leading-relaxed">
                 Here at RGWEB, you&#39;ll find a showcase of my professional journey, skills,
