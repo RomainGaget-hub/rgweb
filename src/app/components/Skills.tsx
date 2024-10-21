@@ -4,7 +4,7 @@ export default function Skills() {
             {/* Page Title */}
             <div className="text-center">
                 <h1 className="text-4xl font-bold mb-2">Skills</h1>
-                <p className="text-sm mb-6">
+                <div className="text-sm mb-6">
                     <ul>
                         <li>1 - Minimal experience</li>
                         <li>2 - Limited experience or not used in over a year.</li>
@@ -12,7 +12,7 @@ export default function Skills() {
                         <li>4 - Multiple uses, capable of solo project completion.</li>
                         <li>5 - Preferred techs used daily</li>
                     </ul>
-                </p>
+                </div>
             </div>
 
             {/* Grid Layout for Categories */}
