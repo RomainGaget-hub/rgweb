@@ -1,14 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
 
 import { SunIcon, MoonIcon } from '@radix-ui/react-icons';
 import { Button } from '@/components/ui/button';
 
-export default function ThemeToggle() {
+export default function ThemeToggle({
+	setTheme,
+	resolvedTheme,
+}: {
+	setTheme: (theme: string) => void;
+	resolvedTheme: 'light' | 'dark';
+}) {
 	const [mounted, setMounted] = useState(false);
-	const { setTheme, resolvedTheme } = useTheme();
 
 	useEffect(() => setMounted(true), []);
 
