@@ -8,17 +8,15 @@ import BlogPreview from './components/BlogPreview';
 import Skills from './components/Skills';
 
 const Home = () => {
-
-
-  return (
-    <section className='py-24'>
-      <div className='container max-w-3xl'>
-        <Profile />
-        <Skills />
-        <BlogPreview />
-      </div>
-    </section>
-  );
+	return (
+		<section className='py-24'>
+			<div className='container max-w-5xl'>
+				<Profile />
+				<Skills />
+				<BlogPreview />
+			</div>
+		</section>
+	);
 };
 
 export default Home;

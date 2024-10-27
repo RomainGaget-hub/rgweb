@@ -26,6 +26,7 @@ module.exports = {
 			fontFamily: {
 				sans: ['var(--font-sans)', ...fontFamily.sans],
 				serif: ['var(--font-serif)', ...fontFamily.serif],
+				alegreya: ['var(--font-alegreya)', ...fontFamily.serif],
 			},
 			colors: {
 				background: 'hsl(var(--background))',

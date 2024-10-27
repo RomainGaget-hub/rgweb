@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display, Alegreya } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import './globals.css';
 import Providers from '@/components/providers';
@@ -7,7 +7,11 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif' });
+const playfair = Playfair_Display({
+	subsets: ['latin'],
+	variable: '--font-serif',
+});
+const alegreya = Alegreya({ subsets: ['latin'], variable: '--font-alegreya' }); // Add Alegreya
 
 export const metadata: Metadata = {
 	title: 'RG Web',
@@ -22,13 +26,16 @@ export default function RootLayout({
 	return (
 		<html lang='en' suppressHydrationWarning>
 			<body
-				className={cn('flex min-h-screen flex-col font-sans antialiased', inter.variable, playfair.variable)}
+				className={cn(
+					'flex min-h-screen flex-col font-sans antialiased',
+					inter.variable,
+					playfair.variable,
+					alegreya.variable
+				)}
 			>
 				<Providers>
 					<Header />
-					<main className="grow">
-						{children}
-					</main>
+					<main className='grow'>{children}</main>
 					<Footer />
 				</Providers>
 			</body>
