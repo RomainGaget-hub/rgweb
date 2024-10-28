@@ -6,71 +6,30 @@
     :root {
       --background: #DEDFE5;
       --foreground: #2A3850;
-      --card: #3E609A;
-      --card-foreground: #2A3850;
       --primary: #E94D4D;
       --primary-foreground: #DEDFE5;
       --secondary: #293852;
       --secondary-foreground: #2A3850;
-      --muted: #6688C2;
-      --muted-foreground: #2A3850;
-      --accent: #E94D4D;
-      --accent-foreground: #2A3850;
-      --destructive: #E94D4D;
-      --destructive-foreground: #DEDFE5;
-      --border: #293852;
-      --input: #293852;
-      --ring: #6688C2;
-      --radius: 0.5rem;
     }
   
     .dark {
       --background: #1B1C22;
       --foreground: #AFBDD5;
-      --card: #6688C2;
-      --card-foreground: #AFBDD5;
       --primary: #B11616;
       --primary-foreground: #AFBDD5;
       --secondary: #AEBCD6;
       --secondary-foreground: #AFBDD5;
-      --muted: #6688C2;
-      --muted-foreground: #AFBDD5;
-      --accent: #B11616;
-      --accent-foreground: #AFBDD5;
-      --destructive: #B11616;
-      --destructive-foreground: #AFBDD5;
-      --border: #6688C2;
-      --input: #6688C2;
-      --ring: #AFBDD5;
+      
     }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-background text-foreground;
   }
+/*   
+  header {
+    @apply bg-primary text-primary-foreground;
+  } */
 
-  .title {
-    @apply text-3xl font-bold underline decoration-border/75 decoration-2 underline-offset-8;
-  }
-
-  .prose pre {
-    @apply overflow-x-auto rounded-lg bg-accent px-5 py-4 text-sm;
-  }
-
-  .prose code {
-    @apply rounded-lg px-1 py-0.5;
-  }
-
-  .prose pre code {
-    @apply p-0;
-    line-height: 1.75;
-  }
-
-  .prose code span {
-    @apply font-medium;
-  }
 }

@@ -3,8 +3,8 @@ import { Inter, Playfair_Display, Alegreya } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import './globals.css';
 import Providers from '@/components/providers';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const playfair = Playfair_Display({

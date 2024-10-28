@@ -3,16 +3,15 @@
 // pages/index.tsx
 
 import Profile from '../components/Profile';
-import BlogPreview from './components/BlogPreview';
-// Import CSS
-import Skills from './components/Skills';
+import BlogPreview from '../components/BlogPreview';
+import HomeIntro from '@/components/HomeIntro';
 
 const Home = () => {
 	return (
-		<section className='py-24'>
-			<div className='container max-w-5xl'>
-				<Profile />
-				<Skills />
+		<section>
+			<div>
+				<HomeIntro />
+
 				<BlogPreview />
 			</div>
 		</section>
