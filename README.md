@@ -1,3 +1,7 @@
+# RGWEB - Developer Blog & Portfolio
+
+Welcome to **RGWEB**, a personal website and blog created by Romain Gaget. This site showcases my journey in web development, featuring articles, tutorials, and insights on front-end and back-end technologies. Here, you’ll find a collection of projects, development tips, and resources aimed at helping developers of all levels grow and stay up-to-date with modern web practices.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
