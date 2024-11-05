@@ -1,9 +1,15 @@
 import React from 'react';
 import prisma from '@/lib/db';
 import Link from 'next/link';
+import { createPost } from '@/actions/actions';
 
 const Page = async () => {
-	const posts = await prisma.post.findMany();
+	const posts = await prisma.post.findMany({
+		take: 5,
+		orderBy: {
+			createdAt: 'desc',
+		},
+	});
 	return (
 		<div className='container flex flex-col content-center items-center justify-center gap-2'>
 			<h1 className='py-5 font-bold'>Latest Post</h1>
@@ -14,7 +20,10 @@ const Page = async () => {
 					</li>
 				))}
 			</ul>
-			<form className='mx-auto flex w-[300px] flex-col gap-y-2'>
+			<form
+				action={createPost}
+				className='mx-auto flex w-[300px] flex-col gap-y-2'
+			>
 				<input
 					type='text'
 					name='title'

@@ -22,6 +22,7 @@ model Post {
   title     String
   slug      String   @unique
   content   String?
+  excerpt   String?
   createdAt DateTime @default(now())
   published Boolean  @default(false)
   author    User?    @relation(fields: [authorId], references: [id])
