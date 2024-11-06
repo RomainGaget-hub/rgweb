@@ -1,20 +1,15 @@
 // components/BlogPreview.tsx
 import React from 'react';
 import BlogPostPreview from './BlogPostPreview';
+import prisma from '@/lib/db';
 
-const BlogPreview = () => {
-	const posts = [
-		{
-			title: 'First Blog Post',
-			excerpt: 'This is a short summary.',
-			date: '2024-10-07',
+const BlogPreview = async () => {
+	const posts = await prisma.post.findMany({
+		take: 5,
+		orderBy: {
+			createdAt: 'desc',
 		},
-		{
-			title: 'Another Blog Post',
-			excerpt: 'More details on another topic.',
-			date: '2024-10-01',
-		},
-	];
+	});
 
 	return (
 		<section id='blog' className='bg-gray-100 px-4 py-12'>

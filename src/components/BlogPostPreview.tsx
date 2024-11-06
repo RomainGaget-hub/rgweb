@@ -22,7 +22,7 @@ export default function BlogPostPreview({
 					{post.title}
 				</CardTitle>
 				<p className='mb-4 text-sm text-gray-600'>
-					{post.excerpt}{' '}
+					{post.content}{' '}
 					<a href='#' className='text-primary'>
 						Read more
 					</a>
@@ -34,7 +34,7 @@ export default function BlogPostPreview({
 				<div className='h-8 w-8 flex-shrink-0 rounded-full bg-gray-300' />{' '}
 				{/* Placeholder for author image */}
 				<div className='ml-2 text-sm'>
-					<p className='font-medium text-gray-800'>{post.author}</p>
+					<p className='font-medium text-gray-800'>{post.authorId}</p>
 					{/* <p className='text-gray-500'>{post.createdAt}</p> */}
 				</div>
 			</CardFooter>

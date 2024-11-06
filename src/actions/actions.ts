@@ -2,11 +2,14 @@
 
 import prisma from '@/lib/db';
 
-export async function createPost({ title, content }) {
+export async function createPost(formData: FormData) {
 	return await prisma.post.create({
 		data: {
-			title,
-			content,
+			title: formData.get('title') as string,
+			slug: (formData.get('title') as string)
+				.replace(/\s+/g, '-')
+				.toLowerCase(),
+			content: formData.get('content') as string,
 		},
 	});
 }
