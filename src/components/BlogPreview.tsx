@@ -5,7 +5,7 @@ import prisma from '@/lib/db';
 
 const BlogPreview = async () => {
 	const posts = await prisma.post.findMany({
-		take: 5,
+		take: 3,
 		orderBy: {
 			createdAt: 'desc',
 		},

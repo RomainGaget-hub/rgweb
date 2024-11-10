@@ -1,9 +1,10 @@
 'use server';
 
 import prisma from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export async function createPost(formData: FormData) {
-	return await prisma.post.create({
+	await prisma.post.create({
 		data: {
 			title: formData.get('title') as string,
 			slug: (formData.get('title') as string)
@@ -12,4 +13,6 @@ export async function createPost(formData: FormData) {
 			content: formData.get('content') as string,
 		},
 	});
+
+	revalidatePath('/blog');
 }
