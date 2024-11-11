@@ -1,18 +1,21 @@
 import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from '@/lib/db';
 
 export default NextAuth({
 	adapter: PrismaAdapter(prisma),
 	providers: [
-		Providers.Credentials({
+		CredentialsProvider({
 			name: 'Credentials',
 			credentials: {
 				email: { label: 'Email', type: 'email' },
 				password: { label: 'Password', type: 'password' },
 			},
 			async authorize(credentials) {
+				if (!credentials) {
+					return null;
+				}
 				const user = await prisma.user.findUnique({
 					where: { email: credentials.email },
 				});
@@ -26,7 +29,9 @@ export default NextAuth({
 	],
 	callbacks: {
 		async session({ session, user }) {
-			session.user.role = user.role;
+			if (session.user) {
+				session.user.role = user.role;
+			}
 			return session;
 		},
 	},
