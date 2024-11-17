@@ -16,7 +16,7 @@ export default function AdminBlogPost() {
 			<div className='flex items-center justify-between gap-4'>
 				<PageHeader>Blog Posts</PageHeader>
 				<Button>
-					<Link href='/admin/blogpost/create'>Create Blog Post</Link>
+					<Link href='/admin/blogpost/new'>Create Blog Post</Link>
 				</Button>
 			</div>
 			<BlogPostsTable />

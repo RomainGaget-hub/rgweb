@@ -25,8 +25,10 @@ model Post {
   id        String   @id @default(cuid())
   title     String
   slug      String   @unique
-  content   String?
+  content   String
   excerpt   String?
+  imagePath String
+  published Boolean  @default(false)
   createdAt DateTime @default(now())
   author    User?    @relation(fields: [authorId], references: [id], name: "UserPosts")
   authorId  String?

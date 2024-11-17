@@ -1,7 +1,6 @@
 import React from 'react';
 import prisma from '@/lib/db';
 import Link from 'next/link';
-import { createPost } from '@/actions/actions';
 
 const Page = async () => {
 	const posts = await prisma.post.findMany({
@@ -20,29 +19,6 @@ const Page = async () => {
 					</li>
 				))}
 			</ul>
-			<form
-				action={createPost}
-				className='mx-auto flex w-[300px] flex-col gap-y-2'
-			>
-				<input
-					type='text'
-					name='title'
-					placeholder='Title'
-					className='rounded-sm px-2 py-1'
-				/>
-				<textarea
-					name='content'
-					rows={5}
-					placeholder='Content'
-					className='rounded-sm px-2 py-1'
-				/>
-				<button
-					type='submit'
-					className='rounded-sm bg-blue-500 px-2 py-1 text-white'
-				>
-					Submit
-				</button>
-			</form>
 		</div>
 	);
 };
