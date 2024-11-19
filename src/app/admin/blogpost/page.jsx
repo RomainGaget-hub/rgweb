@@ -18,9 +18,9 @@ import {
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
-	DropdownMenuSubContent,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { ActivateBlogPost, DeleteBlogPost } from './_components/BlogPostAction';
 
 export default function AdminBlogPost() {
 	return (
@@ -100,10 +100,17 @@ async function BlogPostsTable() {
 								<DropdownMenuContent>
 									<DropdownMenuLabel>Actions</DropdownMenuLabel>
 									<DropdownMenuItem>
-										<Link href={`/admin/blogpost/${blogPost.id}`}>Edit</Link>
+										<Link href={`/admin/blogpost/${blogPost.id}/edit`}>
+											Edit
+										</Link>
 									</DropdownMenuItem>
 									<DropdownMenuSeparator />
-									<DropdownMenuItem>Delete</DropdownMenuItem>
+									<ActivateBlogPost
+										id={blogPost.id}
+										isPublished={blogPost.published}
+									/>
+									<DropdownMenuSeparator />
+									<DeleteBlogPost id={blogPost.id} />
 								</DropdownMenuContent>
 							</DropdownMenu>
 						</TableCell>

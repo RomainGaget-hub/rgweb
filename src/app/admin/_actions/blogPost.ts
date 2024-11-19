@@ -42,3 +42,19 @@ export async function createPost(prevState: unknown, formData: FormData) {
 
 	redirect('/admin/blogpost');
 }
+
+export async function togglePostPublished(id: string, isPublished: boolean) {
+	await prisma.post.update({
+		where: { id },
+		data: { published: isPublished },
+	});
+}
+
+export async function deletePost(id: string) {
+	const blogpost = await prisma.post.delete({ where: { id } });
+	if (blogpost === null) {
+		throw new Error('Post not found');
+	}
+
+	await fs.unlink(blogpost.imagePath);
+}
