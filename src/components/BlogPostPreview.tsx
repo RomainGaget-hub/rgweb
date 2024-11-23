@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import { Post } from '@prisma/client';
+import Image from 'next/image';
 
 export default function BlogPostPreview({
 	post,
@@ -13,7 +14,9 @@ export default function BlogPostPreview({
 		<Card className='max-w-sm shadow-md' key={key}>
 			{/* Image */}
 			<div className='flex h-48 w-full items-center justify-center bg-gray-200'>
-				<span className='text-lg text-gray-400'>Image Placeholder</span>
+				<div className='flex h-48 w-full items-center justify-center bg-gray-200'>
+					<img src={post.imagePath} alt={post.title} width={200} height={200} />
+				</div>{' '}
 			</div>
 
 			{/* Content */}

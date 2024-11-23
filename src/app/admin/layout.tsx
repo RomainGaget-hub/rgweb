@@ -11,7 +11,7 @@ export default function AdminLayout({
 		<>
 			<NavAdmin>
 				<NavLink href='/admin'>Admin</NavLink>
-				<NavLink href='/admin/posts'>Posts</NavLink>
+				<NavLink href='/admin/blogpost'>Posts</NavLink>
 			</NavAdmin>
 			<div className='container my-6'>{children}</div>
 		</>

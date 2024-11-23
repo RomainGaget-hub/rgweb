@@ -66,14 +66,22 @@ const Header: React.FC = () => {
 					</div>
 				</div>
 				<div className='lg:flex lg:justify-end'>
-					<ToggleTheme
+					{/* <ToggleTheme
 						setTheme={setTheme}
 						resolvedTheme={
 							resolvedTheme === 'light' || resolvedTheme === 'dark'
 								? resolvedTheme
 								: 'light'
 						}
-					/>
+					/> */}
+					<div>
+						<Link
+							href={`/admin`}
+							className='transition-opacity duration-200 hover:opacity-80'
+						>
+							Admin
+						</Link>
+					</div>
 				</div>
 			</nav>
 		</header>

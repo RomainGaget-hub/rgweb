@@ -27,11 +27,60 @@ export async function createPost(prevState: unknown, formData: FormData) {
 	const data = result.data;
 	console.log(data, 'data');
 
-	await fs.mkdir('blogs', { recursive: true });
-	const imagePath = `blogs/${crypto.randomUUID()}-${data.image.name}`;
-	await fs.writeFile(imagePath, Buffer.from(await data.image.arrayBuffer()));
+	await fs.mkdir('public/blogImg', { recursive: true });
+	const imagePath = `/blogImg/${crypto.randomUUID()}-${data.image.name}`;
+	await fs.writeFile(
+		`public${imagePath}`,
+		Buffer.from(await data.image.arrayBuffer())
+	);
 
 	await prisma.post.create({
+		data: {
+			title: data.title,
+			slug: (data.slug as string).replace(/\s+/g, '-').toLowerCase(),
+			content: data.content,
+			imagePath,
+		},
+	});
+
+	redirect('/admin/blogpost');
+}
+
+const editSchema = addSchema.extend({
+	image: imageSchema.optional(),
+});
+
+export async function updatePost(
+	id: string,
+	prevState: unknown,
+	formData: FormData
+) {
+	const result = editSchema.safeParse(Object.fromEntries(formData.entries()));
+	if (!result.success) {
+		return result.error.formErrors.fieldErrors;
+	}
+
+	const data = result.data;
+	console.log(data, 'data');
+
+	const post = await prisma.post.findUnique({ where: { id } });
+
+	if (post === null) {
+		throw new Error('Post not found');
+	}
+
+	let imagePath = post.imagePath;
+	if (data.image !== null && data.image && data.image.size > 0) {
+		await fs.unlink(`public${post.imagePath}`);
+		imagePath = `/blogImg/${crypto.randomUUID()}-${data.image.name}`;
+		await fs.writeFile(
+			`public${imagePath}`,
+			Buffer.from(await data.image.arrayBuffer())
+		);
+	}
+
+	await prisma.post.update({
+		where: { id },
 		data: {
 			title: data.title,
 			slug: (data.slug as string).replace(/\s+/g, '-').toLowerCase(),
