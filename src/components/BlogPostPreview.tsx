@@ -1,17 +1,13 @@
+'use client';
+
 import React from 'react';
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import { Post } from '@prisma/client';
-import Image from 'next/image';
+import Link from 'next/link';
 
-export default function BlogPostPreview({
-	post,
-	key,
-}: {
-	post: Post;
-	key: number;
-}) {
+export default function BlogPostPreview({ post }: { post: Post }) {
 	return (
-		<Card className='max-w-sm shadow-md' key={key}>
+		<Card className='max-w-sm shadow-md'>
 			{/* Image */}
 			<div className='flex h-48 w-full items-center justify-center bg-gray-200'>
 				<div className='flex h-48 w-full items-center justify-center bg-gray-200'>
@@ -25,10 +21,10 @@ export default function BlogPostPreview({
 					{post.title}
 				</CardTitle>
 				<p className='mb-4 text-sm text-gray-600'>
-					{post.content}{' '}
-					<a href='#' className='text-primary'>
-						Read more
-					</a>
+					{post.excerpt}{' '}
+					<Link href={`blog/${post.slug}`} className='text-primary'>
+						Read more!
+					</Link>
 				</p>
 			</CardContent>
 

@@ -13,7 +13,6 @@ const imageSchema = fileSchema.refine(
 
 const addSchema = z.object({
 	title: z.string().min(3),
-	slug: z.string().min(3),
 	content: z.string().min(3),
 	image: imageSchema.refine((file) => file.size > 0, 'Required'),
 });
@@ -37,7 +36,8 @@ export async function createPost(prevState: unknown, formData: FormData) {
 	await prisma.post.create({
 		data: {
 			title: data.title,
-			slug: (data.slug as string).replace(/\s+/g, '-').toLowerCase(),
+			slug: createSlug(data.title),
+			excerpt: createExcerpt(data.content),
 			content: data.content,
 			imagePath,
 		},
@@ -83,8 +83,9 @@ export async function updatePost(
 		where: { id },
 		data: {
 			title: data.title,
-			slug: (data.slug as string).replace(/\s+/g, '-').toLowerCase(),
+			slug: createSlug(data.title),
 			content: data.content,
+			excerpt: createExcerpt(data.content),
 			imagePath,
 		},
 	});
@@ -105,5 +106,29 @@ export async function deletePost(id: string) {
 		throw new Error('Post not found');
 	}
 
-	await fs.unlink(blogpost.imagePath);
+	await fs.unlink(`public${blogpost.imagePath}`);
+}
+
+function createExcerpt(content: string, maxLength: number = 200): string {
+	// Remove Markdown syntax using a simple regex (handles headings, links, etc.)
+	const plainText = content
+		.replace(/[#*_>\-\+~`]/g, '') // Remove basic Markdown symbols
+		.replace(/\[(.*?)\]\(.*?\)/g, '$1') // Replace Markdown links [text](url) with "text"
+		.replace(/!\[(.*?)\]\(.*?\)/g, '$1') // Replace image Markdown with "alt text"
+		.replace(/(```[\s\S]*?```|`.*?`)/g, '') // Remove code blocks and inline code
+		.replace(/\n+/g, ' ') // Collapse newlines into spaces
+		.trim();
+
+	// Truncate the plain text to the desired maxLength
+	return plainText.length > maxLength
+		? `${plainText.substring(0, maxLength)}...`
+		: plainText;
+}
+
+function createSlug(title: string): string {
+	return title
+		.toLowerCase() // Convert to lowercase
+		.trim() // Remove leading/trailing spaces
+		.replace(/[^\w\s-]/g, '') // Remove special characters (except spaces and hyphens)
+		.replace(/\s+/g, '-'); // Replace spaces with hyphens
 }

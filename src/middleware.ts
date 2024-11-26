@@ -1,18 +1,32 @@
-import { getToken } from 'next-auth/jwt';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { isValidPassword } from './lib/utils';
 
-export async function middleware(req) {
-	const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-	const { pathname } = req.nextUrl;
+export async function middleware(req: NextRequest) {
+	if ((await isAuthanticated(req)) === false) {
+		return new NextResponse('Unauthorized', {
+			status: 401,
+			headers: { 'WWW-Authenticate': 'Basic' },
+		});
+	}
+}
 
-	// Allow if token exists and user has admin role
-	// if (pathname.startsWith('/admin')) {
-	// 	if (!token || token.role !== 'admin') {
-	// 		return NextResponse.redirect(new URL('/login', req.url));
-	// 	}
-	// }
+async function isAuthanticated(req: NextRequest) {
+	const authHeader =
+		req.headers.get('Authorization') || req.headers.get('authorization');
 
-	return NextResponse.next();
+	if (!authHeader) return false;
+
+	const [username, password] = Buffer.from(authHeader.split(' ')[1], 'base64')
+		.toString()
+		.split(':');
+
+	console.log(username, password);
+	console.log(process.env.ADMIN_USERNAME, process.env.ADMIN_HASHED_PASSWORD);
+
+	return (
+		username === process.env.ADMIN_USERNAME &&
+		password === process.env.ADMIN_HASHED_PASSWORD
+	);
 }
 
 export const config = {

@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import ToggleTheme from '@/components/theme-toggle';
 import Image from 'next/image';
 import RGWEB_LOGO_DARK from '@/public/images/logo/White logo - no background.svg';
 import RGWEB_LOGO_LIGHT from '@/public/images/logo/Black logo - no background.svg';

@@ -16,8 +16,10 @@ const BlogPreview = async () => {
 			<div className='container mx-auto'>
 				<h2 className='mb-8 text-center text-3xl font-bold'>Blog</h2>
 				<ul className='space-y-8'>
-					{posts.map((post, index) => (
-						<BlogPostPreview key={index} post={post} />
+					{posts.map((post) => (
+						<li key={post.id}>
+							<BlogPostPreview post={post} />
+						</li>
 					))}
 				</ul>
 			</div>

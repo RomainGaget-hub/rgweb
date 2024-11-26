@@ -3,17 +3,20 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { createPost, updatePost } from '../../_actions/blogPost';
 import { useFormState, useFormStatus } from 'react-dom';
 import { Post } from '@prisma/client';
 import Image from 'next/image';
+import SimpleMdeReact from 'react-simplemde-editor';
+import 'simplemde/dist/simplemde.min.css';
+import { useState } from 'react';
 
 export default function BlogPostForm({ blogPost }: { blogPost?: Post | null }) {
 	const [error, action] = useFormState(
 		blogPost == null ? createPost : updatePost.bind(null, blogPost.id),
 		{}
 	);
+	const [content, setContent] = useState(blogPost?.content || '');
 	return (
 		<form action={action} className='space-y-8'>
 			<div className='space-y-2'>
@@ -28,23 +31,18 @@ export default function BlogPostForm({ blogPost }: { blogPost?: Post | null }) {
 				{error?.title && <p className='text-red-500'>{error.title}</p>}
 			</div>
 			<div className='space-y-2'>
-				<Label htmlFor='slug'>Slug</Label>
-				<Input
-					id='slug'
-					name='slug'
-					type='text'
-					required
-					defaultValue={blogPost?.slug || ''}
-				/>
-				{error?.slug && <p className='text-red-500'>{error.slug}</p>}
-			</div>
-			<div className='space-y-2'>
 				<Label htmlFor='content'>Content</Label>
-				<Textarea
+				<textarea
 					id='content'
 					name='content'
 					required
-					defaultValue={blogPost?.content || ''}
+					readOnly
+					hidden
+					value={content}
+				/>
+				<SimpleMdeReact
+					value={blogPost?.content || content}
+					onChange={setContent}
 				/>
 				{error?.content && <p className='text-red-500'>{error.content}</p>}
 			</div>
