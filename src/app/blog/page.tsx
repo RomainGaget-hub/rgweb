@@ -1,6 +1,7 @@
 import React from 'react';
 import prisma from '@/lib/db';
 import Link from 'next/link';
+import BlogPostCard from '@/components/BlogPostCard';
 
 const Page = async () => {
 	const posts = await prisma.post.findMany({
@@ -10,15 +11,13 @@ const Page = async () => {
 		},
 	});
 	return (
-		<div className='container flex flex-col content-center items-center justify-center gap-2'>
-			<h1 className='py-5 font-bold'>Latest Post</h1>
-			<ul className='my-20 border-slate-400'>
+		<div className='container mx-auto py-12'>
+			<h1 className='mb-8 text-4xl font-bold text-white'>Latest Articles</h1>
+			<div className='space-y-8'>
 				{posts.map((post) => (
-					<li key={post.id}>
-						<Link href={`/blog/${post.slug}`}>{post.title}</Link>
-					</li>
+					<BlogPostCard key={post.id} post={post} />
 				))}
-			</ul>
+			</div>
 		</div>
 	);
 };

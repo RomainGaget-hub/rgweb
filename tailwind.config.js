@@ -30,9 +30,11 @@ module.exports = {
 				'primary-foreground': 'var(--primary-foreground)',
 				secondary: 'var(--secondary)',
 				'secondary-foreground': 'var(--secondary-foreground)',
+				muted: 'var(--muted)',
+				'muted-background': 'var(--muted-background)',
 			},
 		},
 	},
-	plugins: [require('tailwindcss-animate')],
+	plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 	darkMode: ['class', 'class'], // or 'media' if you prefer
 };

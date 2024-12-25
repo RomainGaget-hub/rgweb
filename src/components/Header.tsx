@@ -4,85 +4,57 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import RGWEB_LOGO_DARK from '@/public/images/logo/White logo - no background.svg';
-import RGWEB_LOGO_LIGHT from '@/public/images/logo/Black logo - no background.svg';
-import { useTheme } from 'next-themes';
+import RGWEB_LOGO_WHITE from '@/public/images/logo/White logo - no background.svg';
 import { cn } from '@/lib/utils';
 
 const links = [
-	{ href: '/about', label: 'About' },
+	{ href: '/home', label: 'Home' },
 	{ href: '/blog', label: 'Blog' },
-	{ href: '/', icon: true },
 	{ href: '/projects', label: 'Projects' },
-	{ href: '/contact', label: 'Contact' },
+	{ href: '/about', label: 'About' },
 ];
 
 const Header: React.FC = () => {
-	const { setTheme, resolvedTheme } = useTheme();
 	const pathname = usePathname();
 
 	return (
-		<header>
-			<nav
-				className='justify-cente flex items-center p-6 lg:px-8'
-				aria-label='Global'
-			>
-				<div className='flex flex-1 flex-col items-center justify-center'>
-					<div className='flex flex-1 justify-center gap-x-4 text-base lg:gap-x-12 lg:text-lg'>
-						{links.map(({ href, label }) =>
-							label ? (
-								<Link
-									key={`${href}${label}`}
-									href={href}
-									className={cn(
-										'mt-6 rounded-md px-4 py-2 transition-all duration-200',
-										pathname === href
-											? 'bg-primary font-medium text-primary-foreground'
-											: 'text-foreground hover:bg-primary hover:text-primary-foreground'
-									)}
-								>
-									{label}
-								</Link>
-							) : (
-								<Link
-									key={href}
-									href={'/'}
-									className='transition-opacity duration-200 hover:opacity-80'
-								>
-									<Image
-										src={
-											resolvedTheme === 'dark'
-												? RGWEB_LOGO_DARK
-												: RGWEB_LOGO_LIGHT
-										}
-										alt='RGWEB'
-										width={60}
-										height={60}
-									/>
-								</Link>
-							)
-						)}
-					</div>
-				</div>
-				<div className='lg:flex lg:justify-end'>
-					{/* <ToggleTheme
-						setTheme={setTheme}
-						resolvedTheme={
-							resolvedTheme === 'light' || resolvedTheme === 'dark'
-								? resolvedTheme
-								: 'light'
-						}
-					/> */}
-					<div>
-						<Link
-							href={`/admin`}
-							className='transition-opacity duration-200 hover:opacity-80'
-						>
-							Admin
+		<header className='bg-background py-4 text-foreground'>
+			<div className='container mx-auto px-4 sm:px-[80px]'>
+				<nav
+					className='grid grid-cols-1 items-center gap-4 text-center lg:grid-cols-12 lg:gap-0 lg:text-left'
+					aria-label='Global'
+				>
+					{/* Logo Section */}
+					<div className='flex justify-center lg:col-span-3 lg:justify-start'>
+						<Link href={'/'}>
+							<Image
+								src={RGWEB_LOGO_WHITE}
+								alt='RGWEB'
+								width={60}
+								height={60}
+							/>
 						</Link>
 					</div>
-				</div>
-			</nav>
+
+					{/* Navigation Links */}
+					<div className='flex flex-row items-center justify-center lg:col-span-9 lg:flex-row lg:justify-end lg:space-x-6 lg:space-y-0'>
+						{links.map(({ href, label }) => (
+							<Link
+								key={`${href}${label}`}
+								href={href}
+								className={cn(
+									'rounded-md px-4 py-2 transition-all duration-200',
+									pathname === href
+										? 'bg-primary font-medium text-primary-foreground'
+										: 'text-foreground hover:bg-primary hover:text-primary-foreground'
+								)}
+							>
+								{label}
+							</Link>
+						))}
+					</div>
+				</nav>
+			</div>
 		</header>
 	);
 };
