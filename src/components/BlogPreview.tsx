@@ -12,9 +12,12 @@ const BlogPreview = async () => {
 	});
 
 	return (
-		<section id='blog' className='bg-gray-100 px-4 py-12'>
-			<div className='container mx-auto'>
-				<h2 className='mb-8 text-center text-3xl font-bold'>Blog</h2>
+		<section className='relative bg-background py-14'>
+			<div className='container mx-auto flex max-w-5xl flex-col items-start justify-center px-4'>
+				<h1 className='mb-20 text-4xl font-bold leading-tight md:text-6xl'>
+					RECENT <br />
+					<span className='text-muted'>BLOGPOSTS</span>
+				</h1>
 				<ul className='space-y-8'>
 					{posts.map((post) => (
 						<li key={post.id}>

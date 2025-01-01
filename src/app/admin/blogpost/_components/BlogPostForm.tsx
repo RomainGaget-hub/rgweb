@@ -7,7 +7,6 @@ import { createPost, updatePost } from '../../_actions/blogPost';
 import { useFormState, useFormStatus } from 'react-dom';
 import { Post } from '@prisma/client';
 import Image from 'next/image';
-import SimpleMdeReact from 'react-simplemde-editor';
 import 'simplemde/dist/simplemde.min.css';
 import { useState } from 'react';
 
@@ -16,7 +15,23 @@ export default function BlogPostForm({ blogPost }: { blogPost?: Post | null }) {
 		blogPost == null ? createPost : updatePost.bind(null, blogPost.id),
 		{}
 	);
-	const [content, setContent] = useState(blogPost?.content || '');
+	const [fileContent, setFileContent] = useState<string | null>(null);
+
+	// Handler for uploading and reading the MDX file
+	const handleFileUpload = async (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const file = event.target.files?.[0];
+		if (!file) return;
+
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			if (e.target?.result) {
+				setFileContent(e.target.result as string);
+			}
+		};
+		reader.readAsText(file);
+	};
 	return (
 		<form action={action} className='space-y-8'>
 			<div className='space-y-2'>
@@ -31,21 +46,19 @@ export default function BlogPostForm({ blogPost }: { blogPost?: Post | null }) {
 				{error?.title && <p className='text-red-500'>{error.title}</p>}
 			</div>
 			<div className='space-y-2'>
-				<Label htmlFor='content'>Content</Label>
-				<textarea
-					id='content'
-					name='content'
+				<Label htmlFor='mdxUpload'>Upload MDX File</Label>
+				<Input
+					id='mdxUpload'
+					name='mdxUpload'
+					type='file'
+					accept='.mdx'
 					required
-					readOnly
-					hidden
-					value={content}
-				/>
-				<SimpleMdeReact
-					value={blogPost?.content || content}
-					onChange={setContent}
+					onChange={handleFileUpload}
 				/>
 				{error?.content && <p className='text-red-500'>{error.content}</p>}
 			</div>
+			{/* Hidden field to include MDX content in the form submission */}
+			<input type='hidden' name='content' value={fileContent || ''} required />
 			<div className='space-y-2'>
 				<Label htmlFor='image'>Image</Label>
 				<Input

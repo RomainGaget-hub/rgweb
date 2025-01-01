@@ -3,6 +3,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { CircleArrowRight } from 'lucide-react';
 
 interface HomeActionProps {
 	bgColor: string; // Background color
@@ -29,26 +30,25 @@ const HomeAction: React.FC<HomeActionProps> = ({
 	};
 
 	return (
-		<Link href={link}>
-			<span
-				className={cn(
-					`flex flex-col justify-between rounded-lg p-4 shadow-lg`,
-					bgColor,
-					sizeClasses[size],
-					textColor
-				)}
-			>
-				<div className='flex items-center justify-start text-3xl'>
-					<div>{icon}</div>
-
-					<div>{text}</div>
-				</div>
-				{/* Arrow Section */}
+		<span
+			className={cn(
+				`flex flex-col justify-between rounded-lg p-4 shadow-lg`,
+				bgColor,
+				sizeClasses[size],
+				textColor
+			)}
+		>
+			<div className='flex items-center justify-around pt-6 text-3xl'>
+				<div className='mr-3'>{icon}</div>
+				<div className='font-bold'>{text}</div>
+			</div>
+			{/* Arrow Section */}
+			<Link href={link}>
 				<div className='flex items-center justify-end'>
-					<div className='rounded-full border-2 p-2'>➡</div>
+					<CircleArrowRight className='h-12 w-12 hover:text-blue-500'></CircleArrowRight>
 				</div>
-			</span>
-		</Link>
+			</Link>
+		</span>
 	);
 };
 
