@@ -9,12 +9,15 @@ const BlogPreview = async () => {
 		orderBy: {
 			createdAt: 'desc',
 		},
+		include: {
+			tags: true,
+		},
 	});
 
 	return (
-		<section className='relative bg-background py-14'>
+		<section className='relative bg-background py-6'>
 			<div className='container mx-auto flex max-w-5xl flex-col items-start justify-center px-4'>
-				<h1 className='mb-20 text-4xl font-bold leading-tight md:text-6xl'>
+				<h1 className='mb-10 text-4xl font-bold leading-tight md:text-6xl'>
 					RECENT <br />
 					<span className='text-muted'>BLOGPOSTS</span>
 				</h1>

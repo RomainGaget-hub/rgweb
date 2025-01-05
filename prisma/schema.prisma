@@ -32,4 +32,13 @@ model Post {
   createdAt DateTime @default(now())
   author    User?    @relation(fields: [authorId], references: [id], name: "UserPosts")
   authorId  String?
+  tags      Tag[]    @relation("PostTags")
+}
+
+model Tag {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  posts     Post[]   @relation("PostTags")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
