@@ -2,24 +2,20 @@ import { getPostbySlug } from '@/lib/posts';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react';
-
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
-import prisma from '@/lib/db';
-import MarkdownRenderer from '@/components/MarkDownRenderer';
+import Image from 'next/image';
+import { formatDate } from '@/lib/utils';
+import MDXContent from '@/components/mdx-content';
 
 const PostPage = async ({ params }: { params: { slug: string } }) => {
-	const post = await prisma.post.findUnique({
-		where: {
-			slug: params.slug,
-		},
-		include: {
-			// user: true,
-		},
-	});
+	const post = await getPostbySlug(params.slug);
 
 	if (!post) {
 		notFound(); // 404 page not found
 	}
+
+	const { metadata, content } = post;
+	const { title, date, author, image } = metadata;
 
 	return (
 		<section className='pb-24 pt-32'>
@@ -31,16 +27,26 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 					<ArrowLeftIcon className='h-5 w-5' />
 					<span>Back to posts</span>
 				</Link>
+				{image && (
+					<div className='relative mb-6 h-96 w-full overflow-hidden rounded-lg'>
+						<Image
+							src={image}
+							alt={title || ''}
+							className='object-cover'
+							fill
+						/>
+					</div>
+				)}
 
 				<header>
-					<h1 className='title'>{post?.title}</h1>
+					<h1 className='title'>{title}</h1>
 					<p className='text-muted-foreground mt-3 text-xs'>
-						{post?.published}
+						{author} / {formatDate(date ?? '')}
 					</p>
 				</header>
 
-				<main className='prose dark:prose-invert mt-16'>
-					<MarkdownRenderer content={post.content} />
+				<main className='prose mt-16'>
+					<MDXContent source={content} />
 				</main>
 			</div>
 		</section>

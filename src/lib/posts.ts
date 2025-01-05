@@ -1,34 +1,54 @@
-import path from "path";
-import fs from "fs";
-import matter from "gray-matter";
-
-
-const postsDirectory = path.join(process.cwd(), "content", "posts");
+import prisma from '@/lib/db';
 
 export type Post = {
-    metadata: {
-        title?: string;
-        date?: string;
-        slug: string;
-        author?: string;
-    };
-    content: string;
+	metadata: PostMetadata;
+	content: string;
+};
+
+export type PostMetadata = {
+	title?: string;
+	date?: string;
+	slug: string;
+	published?: boolean;
+	image?: string;
 };
 
 export async function getPostbySlug(slug: string): Promise<Post | null> {
-    try {
-        const filePath = path.join(postsDirectory, `${slug}.md`);
-        const fileContents = fs.readFileSync(filePath, "utf8");
+	try {
+		const post = await prisma.post.findUnique({
+			where: {
+				slug: slug,
+			},
+			include: {
+				author: {
+					select: {
+						name: true, // Select only the `name` field from the related `User`
+					},
+				},
+			},
+		});
 
-        const { data, content } = matter(fileContents);
+		if (!post) {
+			return null;
+		}
+		//const { data, content } = matter(post.content);
+		const metadata = {
+			title: post.title,
+			date: post.createdAt.toISOString(),
+			slug: post.slug,
+			author: post.author ? post.author.name : '',
+			image: post.imagePath,
+			published: post.published,
+		};
 
-        return {
-            metadata: { ...data, slug }, content
-        };
-    } catch (error) {
-        console.error(error);
-        return null;
+		const content = post.content;
 
-    }
-
+		return {
+			metadata,
+			content,
+		};
+	} catch (error) {
+		console.error(error);
+		return null;
+	}
 }

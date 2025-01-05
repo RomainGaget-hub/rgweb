@@ -20,3 +20,11 @@ async function hashPassword(password: string) {
 
 	return Buffer.from(arrayBuffer).toString('base64');
 }
+
+export function formatDate(date: string) {
+	return new Date(date).toLocaleDateString('en-US', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+	});
+}

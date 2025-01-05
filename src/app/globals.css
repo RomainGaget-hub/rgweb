@@ -33,3 +33,15 @@
     @apply bg-primary text-primary-foreground;
   } */
 }
+
+.prose {
+	@apply text-foreground;
+}
+
+.prose h2 {
+	@apply text-primary;
+}
+
+.prose code {
+	@apply text-secondary; /* todo look into code highlight */
+}

@@ -10,7 +10,7 @@ export default function BlogPostPreview({ post }: { post: Post }) {
 		<div className='flex items-center justify-between'>
 			{/* Content Section */}
 			<div className='flex-1'>
-				<h2 className='mb-2 text-4xl font-bold'>{post.title}</h2>
+				<h2 className='text-4 xl mb-2 font-bold'>{post.title}</h2>
 				<p className='mb-4 text-gray-400'>{post.excerpt}</p>
 				<p className='text-sm text-gray-500'>
 					{new Date(post.createdAt).toLocaleDateString()}
