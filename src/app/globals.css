@@ -39,7 +39,7 @@
 }
 
 .prose h2 {
-	@apply text-primary;
+	@apply text-primary underline decoration-primary decoration-2 underline-offset-4;
 }
 
 .prose code {

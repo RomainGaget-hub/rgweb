@@ -27,8 +27,15 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 					<ArrowLeftIcon className='h-5 w-5' />
 					<span>Back to posts</span>
 				</Link>
+
+				<header className='mb-10'>
+					<h1 className='title text-5xl font-bold text-primary'>{title}</h1>
+					<p className='text-muted-foreground mt-3 text-xs'>
+						{author || 'Romain Gaget'} / {formatDate(date ?? '')}
+					</p>
+				</header>
 				{image && (
-					<div className='relative mb-6 h-96 w-full overflow-hidden rounded-lg'>
+					<div className='relative mb-6 h-80 w-full overflow-hidden rounded-lg'>
 						<Image
 							src={image}
 							alt={title || ''}
@@ -37,13 +44,6 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 						/>
 					</div>
 				)}
-
-				<header>
-					<h1 className='title'>{title}</h1>
-					<p className='text-muted-foreground mt-3 text-xs'>
-						{author} / {formatDate(date ?? '')}
-					</p>
-				</header>
 
 				<main className='prose mt-16'>
 					<MDXContent source={content} />

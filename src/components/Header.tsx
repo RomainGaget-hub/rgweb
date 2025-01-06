@@ -8,7 +8,7 @@ import RGWEB_LOGO_WHITE from '@/public/images/logo/White logo - no background.sv
 import { cn } from '@/lib/utils';
 
 const links = [
-	{ href: '/home', label: 'Home' },
+	{ href: '/', label: 'Home' },
 	{ href: '/blog', label: 'Blog' },
 	{ href: '/projects', label: 'Projects' },
 	{ href: '/about', label: 'About' },
