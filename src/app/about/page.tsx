@@ -1,13 +1,15 @@
 import React from 'react';
-import Skills from '../../components/Skills';
+
 import { CircleUser } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import JobExperience from '@/components/JobAccordion';
+import WorkExperience from '@/components/WorkExperience';
 
 export default function About() {
 	return (
 		<div className='mx-auto w-full py-12'>
-			<div className='container mx-auto flex max-w-5xl flex-col items-start justify-center px-4'>
-				<div className='grid w-full grid-cols-2 gap-8'>
+			<div className='container mx-auto flex max-w-5xl flex-col flex-wrap items-start justify-center px-4'>
+				<div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
 					<div className='col-span-1'>
 						<CircleUser className='mb-8 h-32 w-32' />
 						<h1 className='mb-8 text-6xl font-bold text-primary'>
@@ -37,9 +39,9 @@ export default function About() {
 			</div>
 			<div className='mt-28 flex flex-col gap-8 bg-primary py-16'>
 				<div className='container mx-auto flex max-w-5xl flex-col items-start justify-center px-4'>
-					<h2 className='mb-8 text-3xl font-bold text-foreground'>
-						Working Experience
-					</h2>
+					<div className='flex flex-col gap-8'>
+						<WorkExperience />
+					</div>
 				</div>
 			</div>
 		</div>

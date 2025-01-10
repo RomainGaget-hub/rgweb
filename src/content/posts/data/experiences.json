@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "role": "Digital Engineering Manager",
+    "company": "AJW Group",
+    "duration": "January 2022 – Present",
+    "description": [
+      "Lead a talented team in designing and deploying cutting-edge digital solutions.",
+      "Actively contribute to React and TypeScript-based front-end development.",
+      "Strategic planning and execution of digital initiatives.",
+      "Direct the Digital Engineering team's efforts in application development.",
+      "Guide team evaluations, promotions, and performance management.",
+      "Advocate for modern programming frameworks and best practices.",
+      "Collaborated with the cybersecurity team to ensure secure front-end applications."
+    ]
+  },
+  {
+    "id": 2,
+    "role": "Senior JavaScript Developer",
+    "company": "AJW Group",
+    "duration": "December 2019 – January 2022",
+    "description": [
+      "Developed responsive, user-friendly interfaces using ReactJS.",
+      "Integrated REST APIs for seamless data flow and efficient performance.",
+      "Maintained server-side applications using Node.js.",
+      "Implemented CI/CD pipelines for streamlined workflows.",
+      "Mentored junior developers and encouraged best practices."
+    ]
+  },
+  {
+    "id": 3,
+    "role": "Lead Web Developer",
+    "company": "RADical Systems",
+    "duration": "January 2017 – December 2019",
+    "description": [
+      "Developed a JavaScript web application version of RADical's SpacemanWeb software.",
+      "Created dynamic and responsive web interfaces using Angular.",
+      "Built server-side applications with Node.js and Express, integrating MongoDB.",
+      "Planned sprints, roadmaps, and feature specifications.",
+      "Represented the company at trade shows to promote software.",
+      "Provided customer training and technical implementation support."
+    ]
+  },
+  {
+    "id": 4,
+    "role": "Software Support Specialist",
+    "company": "RADical Systems",
+    "duration": "October 2013 – January 2017",
+    "description": [
+      "Provided 1st, 2nd, and 3rd line support for the Space Manager software solution.",
+      "Developed and maintained XML scripts for program customization.",
+      "Created bespoke SQL reports tailored to customer needs.",
+      "Provided on-site training for new customers.",
+      "Designed HTML emails for professional communication with clients."
+    ]
+  }
+]
