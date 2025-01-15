@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { CircleUser } from 'lucide-react';
+import { CircleUser, Github, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import JobExperience from '@/components/JobAccordion';
 import WorkExperience from '@/components/WorkExperience';
+import Link from 'next/link';
 
 export default function About() {
 	return (
@@ -18,21 +19,29 @@ export default function About() {
 					</div>
 					<div className='col-span-1'>
 						<h2 className='mb-8 text-3xl font-bold text-foreground'>
-							An Experienced Web Developer based in England
+							Web Developer | Manager | Tech Enthusiast based in England
 						</h2>
 						<p className='mb-8 text-lg text-muted'>
-							With over 10 years of experience in web development, I have worked
-							with a wide range of clients, from startups to large corporations.
-							I specialize in creating custom websites that are both functional
-							and aesthetically pleasing.
+							As a web developer and engineering manager, I’m passionate about
+							innovation, emerging technologies, and sharing knowledge. This
+							site is my space to explore and showcase ideas in web development,
+							AI, and tech leadership, while inspiring others through my journey
+							in building and learning
 						</p>
 						<div className='flex flex-col gap-4'>
-							<Button className='bg-primary text-primary-foreground'>
-								Explore My Work
-							</Button>
 							<Button className='bg-secondary text-background'>
-								Contact Me
+								Explore My Blog
 							</Button>
+							{/* social links */}
+							<div className='flex flex-row gap-4'>
+								<h2 className='text-xl font-bold'>Connect with me :</h2>
+								<Link href='https://www.linkedin.com/in/romain-gaget-9444444444/'>
+									<Linkedin />
+								</Link>
+								<Link href='https://github.com/romain-gaget'>
+									<Github />
+								</Link>
+							</div>
 						</div>
 					</div>
 				</div>
