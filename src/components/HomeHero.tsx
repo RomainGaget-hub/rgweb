@@ -11,12 +11,13 @@ export default function HomeIntro() {
 					WELCOME TO <span className='text-primary'>RGWEB</span>
 				</h1>
 				<h3 className='mb-3 text-2xl text-muted-background md:text-3xl'>
-					A Developer’s Journey in Code and Innovation
+					Ideas That Inspire and Innovate
 				</h3>
 				<p className='mb-8 flex max-w-6xl text-lg text-muted md:text-xl'>
-					Dive into a space where web development, best practices, and modern
-					tech come together. Explore in-depth articles and tutorials, sharing
-					insights and practical tips to help you grow as a developer.
+					A space to share ideas, explore new trends, and discuss the
+					possibilities of technology and innovation. Whether it&apos;s AI,
+					leadership, or web development, RGWEB aims to provide simple and
+					engaging content to inspire curiosity and learning.
 				</p>
 				<div className='flex w-full flex-col justify-start gap-24 md:flex-row'>
 					<HomeAction
