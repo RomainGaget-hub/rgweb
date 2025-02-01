@@ -9,6 +9,7 @@ const signupSchema = z.object({
 	fullname: z.string().min(3),
 	email: z.string().email(),
 	password: z.string().min(8),
+	confirmPassword: z.string().min(8),
 });
 
 export async function signup(prevState: unknown, formData: FormData) {
