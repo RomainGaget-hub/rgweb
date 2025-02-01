@@ -1,17 +1,18 @@
-import { JSX } from 'react';
+import { JSX, ComponentProps } from 'react';
 import { highlight } from 'sugar-high';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 
-import Counter from './Counter';
+interface CodeProps extends ComponentProps<'code'> {
+	children: string;
+}
 
-function Code({ children, ...props }: any) {
+function Code({ children, ...props }: CodeProps) {
 	const codeHTML = highlight(children);
 	return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
 const components = {
 	code: Code,
-	Counter,
 };
 
 export default function MDXContent(

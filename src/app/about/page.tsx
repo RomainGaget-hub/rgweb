@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CircleUser, Github, Linkedin } from 'lucide-react';
+import { CircleUser, Linkedin, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -16,7 +16,7 @@ export default function About() {
 						</h1>
 					</div>
 					<div className='col-span-1'>
-						<h2 className='mb-8 text-3xl font-bold text-foreground'>
+						<h2 className='mb-8 text-2xl font-bold text-foreground'>
 							Digital Engineering Manager | Web developer | Tech Enthusiast
 							based in England
 						</h2>
@@ -26,17 +26,18 @@ export default function About() {
 							ideas in web development, AI, and tech leadership, while inspiring
 							others through my journey in building and learning
 						</p>
-						<div className='flex flex-col gap-4'>
-							<Button className='bg-secondary text-background'>
-								Explore My Blog
-							</Button>
+						<div className='flex flex-row justify-around'>
+							<Link href='/blog'>
+								<Button className='bg-secondary text-background'>
+									Explore My Blog
+								</Button>
+							</Link>
 							{/* social links */}
 							<div className='flex flex-row gap-4'>
-								<h2 className='text-xl font-bold'>Connect with me :</h2>
-								<Link href='https://www.linkedin.com/in/romain-gaget-9444444444/'>
+								<Link href='https://www.linkedin.com/in/romain-gaget-99931040/'>
 									<Linkedin />
 								</Link>
-								<Link href='https://github.com/romain-gaget'>
+								<Link href='https://github.com/RomainGaget-hub'>
 									<Github />
 								</Link>
 							</div>
@@ -44,7 +45,7 @@ export default function About() {
 					</div>
 				</div>
 			</div>
-			<div className='mt-28 flex flex-col gap-8 bg-background py-16'>
+			<div className='mt-12 flex flex-col gap-8 bg-background py-16'>
 				<div className='container mx-auto flex max-w-5xl flex-col items-start justify-center px-4'>
 					<div className='flex flex-col gap-16'>
 						{/* What I Do Section */}
