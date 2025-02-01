@@ -28,10 +28,10 @@ export default NextAuth({
 		}),
 	],
 	callbacks: {
-		async session({ session, user }) {
-			if (session.user) {
-				session.user.role = user.role;
-			}
+		async session({ session }) {
+			// if (session.user) {
+			// 	session.user.role = user.role;
+			// }
 			return session;
 		},
 	},
