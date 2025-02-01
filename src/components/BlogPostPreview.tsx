@@ -1,11 +1,15 @@
 'use client';
 
 import React from 'react';
-import { Post } from '@prisma/client';
+import { Post, Tag } from '@prisma/client';
 import Link from 'next/link';
 import { formatDate } from '@/lib/utils';
 
-export default function BlogPostPreview({ post }: { post: Post }) {
+interface PostWithTags extends Post {
+	tags?: Tag[];
+}
+
+export default function BlogPostPreview({ post }: { post: PostWithTags }) {
 	return (
 		<Link href={`/blog/${post.slug}`}>
 			<div className='mt-12 flex items-center justify-between'>
