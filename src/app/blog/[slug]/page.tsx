@@ -15,7 +15,7 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 	}
 
 	const { metadata, content } = post;
-	const { title, date, author, image } = metadata;
+	const { title, date, image } = metadata;
 
 	return (
 		<section className='pb-24 pt-32'>
@@ -31,7 +31,7 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 				<header className='mb-10'>
 					<h1 className='title text-5xl font-bold text-primary'>{title}</h1>
 					<p className='text-muted-foreground mt-3 text-xs'>
-						{author || 'Romain Gaget'} / {formatDate(date ?? '')}
+						{'Romain Gaget'} / {formatDate(date ?? '')}
 					</p>
 				</header>
 				{image && (
