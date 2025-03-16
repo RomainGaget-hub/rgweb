@@ -1,7 +1,8 @@
 import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
+import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
+import structure, {getDefaultDocumentNode} from './structure'
 
 export default defineConfig({
   name: 'default',
@@ -10,7 +11,13 @@ export default defineConfig({
   projectId: '72gj895b',
   dataset: 'production',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    deskTool({
+      structure,
+      defaultDocumentNode: getDefaultDocumentNode,
+    }),
+    visionTool(),
+  ],
 
   schema: {
     types: schemaTypes,
