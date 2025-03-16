@@ -1,20 +1,12 @@
-import prisma from '@/lib/db';
+import { getAllPosts, getAllTags } from '@/lib/sanity';
 import BlogSearch from '@/components/BlogSearch';
+import { SanityPost } from '@/types/sanity';
 
 const Page = async () => {
-	const initialPosts = await prisma.post.findMany({
-		take: 5,
-		orderBy: {
-			createdAt: 'desc',
-		},
-		include: {
-			tags: true,
-		},
-	});
+	const posts: SanityPost[] = await getAllPosts();
+	const categories = await getAllTags();
 
-	const tags = await prisma.tag.findMany();
-
-	console.log('tags', tags);
+	console.log('categories', categories);
 
 	return (
 		<div className='container mx-auto py-12'>
@@ -26,7 +18,7 @@ const Page = async () => {
 				</p>
 
 				{/* Pass data to BlogSearch */}
-				<BlogSearch initialPosts={initialPosts} tags={tags} />
+				<BlogSearch initialPosts={posts} categories={categories} />
 			</div>
 		</div>
 	);

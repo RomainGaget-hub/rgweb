@@ -1,40 +1,38 @@
-import prisma from '@/lib/db';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { sanityClient } from '@/lib/sanity';
 
-export async function POST(req: Request) {
-	try {
-		const { query, tag } = await req.json();
+export async function GET(req: NextRequest) {
+	const url = new URL(req.url);
+	const query = url.searchParams.get('query') || '';
+	const category = url.searchParams.get('category') || '';
 
-		// Fetch posts based on the search query and tag
-		const posts = await prisma.post.findMany({
-			where: {
-				AND: [
-					{
-						OR: [
-							{ title: { contains: query.toLowerCase() } },
-							{ content: { contains: query.toLowerCase() } },
-						],
-					},
-					tag
-						? {
-								tags: {
-									some: { name: tag.name },
-								},
-							}
-						: {},
-				],
-			},
-			include: {
-				tags: true, // Include related tags for each post
-			},
-		});
+	// Sanity GROQ Query
+	const sanityQuery = `*[_type == "post" 
+    && ($query == "" || title match $query)
+    && ($category == "" || $category in categories[]->title)
+  ] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    excerpt,
+    content,
+    "imagePath": mainImage.asset->url,
+    publishedAt,
+    "authorName": author->name,
+    "categories": categories[]->title
+  }`;
 
-		return NextResponse.json(posts);
-	} catch (error) {
-		console.error('Error fetching posts:', error);
-		return NextResponse.json(
-			{ error: 'Something went wrong' },
-			{ status: 500 }
-		);
+	// Fix the params object
+	const params: Record<string, string> = {};
+	if (query) {
+		params.query = `${query}*`;
 	}
+	if (category) {
+		params.category = category;
+	}
+
+	// Then use the properly constructed params object
+	const posts = await sanityClient.fetch(sanityQuery, params);
+
+	return NextResponse.json(posts);
 }

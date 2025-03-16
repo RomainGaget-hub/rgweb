@@ -5,6 +5,7 @@ import './globals.css';
 import Providers from '@/components/providers';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import PreviewBanner from './components/PreviewBanner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const poppins = Poppins({
@@ -35,6 +36,7 @@ export default function RootLayout({
 				)}
 			>
 				<Providers>
+					<PreviewBanner />
 					<Header />
 					<main className='grow'>{children}</main>
 					<Footer />

@@ -1,15 +1,27 @@
 'use client';
 
 import React from 'react';
-import { Post, Tag } from '@prisma/client';
 import Link from 'next/link';
 import { formatDate } from '@/lib/utils';
+import { SanityBlock } from '@/types/sanity';
 
-interface PostWithTags extends Post {
-	tags?: Tag[];
+interface SanityPostFormatted {
+	_id: string;
+	title: string;
+	slug: string;
+	content: SanityBlock[];
+	excerpt?: string;
+	imagePath: string;
+	publishedAt: string;
+	authorName?: string;
+	categories?: string[];
 }
 
-export default function BlogPostPreview({ post }: { post: PostWithTags }) {
+export default function BlogPostPreview({
+	post,
+}: {
+	post: SanityPostFormatted;
+}) {
 	return (
 		<Link href={`/blog/${post.slug}`}>
 			<div className='mt-12 flex items-center justify-between'>
@@ -17,21 +29,16 @@ export default function BlogPostPreview({ post }: { post: PostWithTags }) {
 				<div className='flex-1'>
 					<h2 className='mb-2 text-4xl font-bold'>{post.title}</h2>
 					<p className='mb-4 text-muted'>{post.excerpt}</p>
+
 					<div className='flex items-center justify-between'>
-						<p className='text-sm text-muted'>
-							{formatDate(
-								typeof post.createdAt === 'object'
-									? post.createdAt?.toISOString()
-									: (post.createdAt ?? '')
-							)}
-						</p>
+						<p className='text-sm text-muted'>{formatDate(post.publishedAt)}</p>
 						<div className='flex items-center gap-2'>
-							{post.tags?.map((tag) => (
+							{post.categories?.map((category, index) => (
 								<span
-									key={tag.id}
+									key={index}
 									className='rounded-full bg-secondary px-3 py-1 text-sm text-background'
 								>
-									{tag.name}
+									{category}
 								</span>
 							))}
 						</div>

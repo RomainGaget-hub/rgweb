@@ -15,4 +15,9 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+
+  // Add preview configuration
+  preview: {
+    previewUrl: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  },
 })

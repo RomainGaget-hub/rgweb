@@ -1,22 +1,14 @@
-import prisma from '@/lib/db';
+import { getAllPosts } from '@/lib/sanity';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
 	try {
-		const posts = await prisma.post.findMany({
-			include: {
-				tags: true, // Include related tags
-			},
-			orderBy: {
-				createdAt: 'desc', // Sort by newest posts
-			},
-		});
-
+		const posts = await getAllPosts();
 		return NextResponse.json(posts);
 	} catch (error) {
 		console.error('Error fetching all posts:', error);
 		return NextResponse.json(
-			{ error: 'Something went wrong' },
+			{ error: 'Failed to fetch posts' },
 			{ status: 500 }
 		);
 	}

@@ -2,42 +2,32 @@
 
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
-import { Post, Tag } from '@prisma/client';
 import BlogPostPreview from './BlogPostPreview';
+import { SanityPost, SanityCategory } from '@/types/sanity';
+import { SanityPostFormatted } from '@/types/sanity';
 
 export default function BlogSearch({
 	initialPosts,
-	tags,
+	categories,
 }: {
-	initialPosts: Post[];
-	tags: Tag[];
+	initialPosts: SanityPost[];
+	categories: SanityCategory[];
 }) {
 	const [posts, setPosts] = useState(initialPosts);
 	const [searchQuery, setSearchQuery] = useState('');
-	const [activeTag, setActiveTag] = useState<Tag | null>(null);
+	const [activeCategory, setActiveCategory] = useState<SanityCategory | null>(
+		null
+	);
 
 	const handleSearch = async () => {
 		try {
-			// if searchQuery is empty, fetch all posts
-			if (!searchQuery && !activeTag) {
-				const res = await fetch('/api/blog/all');
-				if (!res.ok) {
-					throw new Error('Failed to fetch posts');
-				}
-				const allPosts = await res.json();
-				setPosts(allPosts);
-				return;
-			}
-			// Fetch filtered posts
-			const res = await fetch('/api/blog/search', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ query: searchQuery, tag: activeTag }),
-			});
+			const queryParams = new URLSearchParams();
+			if (searchQuery) queryParams.append('query', searchQuery);
+			if (activeCategory) queryParams.append('category', activeCategory.title);
 
-			if (!res.ok) {
-				throw new Error('Failed to fetch posts');
-			}
+			const res = await fetch(`/api/blog/search?${queryParams.toString()}`);
+
+			if (!res.ok) throw new Error('Failed to fetch posts');
 
 			const filteredPosts = await res.json();
 			setPosts(filteredPosts);
@@ -46,22 +36,19 @@ export default function BlogSearch({
 		}
 	};
 
-	const handleTagClick = async (tag: Tag) => {
-		// Update the active tag first
-		const newTag = activeTag?.id === tag.id ? null : tag;
-		setActiveTag(newTag);
+	const handleCategoryClick = async (category: SanityCategory) => {
+		// Toggle category selection
+		const newCategory = activeCategory?._id === category._id ? null : category;
+		setActiveCategory(newCategory);
 
-		// Then trigger the search with the updated tag
 		try {
-			const res = await fetch('/api/blog/search', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ query: searchQuery, tag: newTag }),
-			});
+			const queryParams = new URLSearchParams();
+			if (searchQuery) queryParams.append('query', searchQuery);
+			if (newCategory) queryParams.append('category', newCategory.title);
 
-			if (!res.ok) {
-				throw new Error('Failed to fetch posts');
-			}
+			const res = await fetch(`/api/blog/search?${queryParams.toString()}`);
+
+			if (!res.ok) throw new Error('Failed to fetch posts');
 
 			const filteredPosts = await res.json();
 			setPosts(filteredPosts);
@@ -74,11 +61,7 @@ export default function BlogSearch({
 		<div className='space-y-4'>
 			{/* Search Input */}
 			<Input
-				onKeyDown={(e) => {
-					if (e.key === 'Enter') {
-						handleSearch();
-					}
-				}}
+				onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
 				type='text'
 				placeholder='Search for blog posts...'
 				value={searchQuery}
@@ -86,19 +69,19 @@ export default function BlogSearch({
 				className='w-full'
 			/>
 
-			{/* Updated Tag Filters */}
+			{/* Category Filters */}
 			<div className='flex flex-wrap gap-2'>
-				{tags.map((tag) => (
+				{categories.map((category) => (
 					<button
-						key={tag.id}
-						onClick={() => handleTagClick(tag)}
+						key={category._id}
+						onClick={() => handleCategoryClick(category)}
 						className={`rounded border px-4 py-2 ${
-							activeTag?.id === tag.id
+							activeCategory?._id === category._id
 								? 'bg-primary text-foreground'
 								: 'border-gray-300'
 						}`}
 					>
-						{tag.name}
+						{category.title}
 					</button>
 				))}
 			</div>
@@ -113,9 +96,31 @@ export default function BlogSearch({
 
 			{/* Posts */}
 			<div className='space-y-4'>
-				{posts.map((post) => (
-					<BlogPostPreview key={post.id} post={post} />
-				))}
+				{posts.map((post) => {
+					// Transform SanityPost to SanityPostFormatted
+					const formattedPost: SanityPostFormatted = {
+						id: post._id,
+						_id: post._id,
+						title: post.title,
+						slug: post.slug,
+						excerpt: post.excerpt,
+						content: post.content || [], // Provide empty array as fallback
+						createdAt: post.publishedAt,
+						publishedAt: post.publishedAt,
+						imagePath: post.imagePath || '',
+						published: true,
+						authorId: null,
+						tags:
+							post.tags?.map((tag) => ({
+								id: tag._id,
+								name: tag.name,
+								createdAt: new Date(),
+								updatedAt: new Date(),
+							})) || [],
+					};
+
+					return <BlogPostPreview key={post._id} post={formattedPost} />;
+				})}
 			</div>
 		</div>
 	);

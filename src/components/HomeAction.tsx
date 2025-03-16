@@ -3,15 +3,14 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { CircleArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface HomeActionProps {
-	bgColor: string; // Background color
-	textColor: string; // Text color
+	bgColor?: string; // Background color (optional now)
+	textColor?: string; // Text color (optional now)
 	icon: React.ReactNode; // Icon component
 	text: string; // Display text
 	link: string; // URL for the action
-	size?: 'small' | 'medium' | 'large'; // Size of the container
 }
 
 const HomeAction: React.FC<HomeActionProps> = ({
@@ -20,35 +19,26 @@ const HomeAction: React.FC<HomeActionProps> = ({
 	icon,
 	text,
 	link,
-	size = 'medium',
 }) => {
-	// Define size classes
-	const sizeClasses = {
-		small: 'w-40 h-24',
-		medium: 'w-60 h-36',
-		large: 'w-80 h-48',
-	};
-
 	return (
-		<span
+		<Link
+			href={link}
 			className={cn(
-				`flex flex-col justify-between rounded-lg p-4 shadow-lg`,
+				'border-border/40 bg-background/80 group flex items-center justify-between rounded-lg border p-4',
+				'hover:border-primary/30 hover:bg-background/95 backdrop-blur-sm transition-all duration-200',
+				'shadow-sm hover:shadow-md',
 				bgColor,
-				sizeClasses[size],
 				textColor
 			)}
 		>
-			<div className='flex items-center justify-around pt-6 text-3xl'>
-				<div className='mr-3'>{icon}</div>
-				<div className='font-bold'>{text}</div>
-			</div>
-			{/* Arrow Section */}
-			<Link href={link}>
-				<div className='flex items-center justify-end'>
-					<CircleArrowRight className='h-12 w-12 hover:text-blue-500'></CircleArrowRight>
+			<div className='flex items-center gap-3'>
+				<div className='bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full text-primary'>
+					{icon}
 				</div>
-			</Link>
-		</span>
+				<span className='font-medium'>{text}</span>
+			</div>
+			<ArrowRight className='h-4 w-4 opacity-50 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100' />
+		</Link>
 	);
 };
 

@@ -1,40 +1,104 @@
 # RGWEB - Developer Blog & Portfolio
 
-Welcome to **RGWEB**, a personal website and blog created by Romain Gaget. This site showcases my journey in web development, featuring articles, tutorials, and insights on front-end and back-end technologies. Here, you’ll find a collection of projects, development tips, and resources aimed at helping developers of all levels grow and stay up-to-date with modern web practices.
+Welcome to **RGWEB**, a personal website and blog created by Romain Gaget. This site showcases my journey in web development, featuring articles, tutorials, and insights on front-end and back-end technologies. Here, you'll find a collection of projects, development tips, and resources aimed at helping developers of all levels grow and stay up-to-date with modern web practices.
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project with [Sanity](https://sanity.io) for content management.
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React 18, TypeScript
+- **Styling**: Tailwind CSS, Radix UI components
+- **Content Management**: Sanity.io
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.x or higher
+- npm or yarn
+- Git
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/rgweb.git
+cd rgweb
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+# or
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Set up environment variables:
+   Create a `.env.local` file in the root directory with the following variables:
+
+```
+NEXT_PUBLIC_SANITY_PROJECT_ID="your-sanity-project-id"
+NEXT_PUBLIC_SANITY_DATASET="production"
+```
+
+### Running the Development Server
+
+```bash
+# Run Next.js frontend
+npm run dev
+
+# Run Sanity Studio (CMS)
+npm run sanity
+```
+
+- Next.js frontend: [http://localhost:3000](http://localhost:3000)
+- Sanity Studio: [http://localhost:3333](http://localhost:3333)
+
+## Project Structure
+
+```
+rgweb/
+├── src/                  # Source code
+│   ├── app/              # Next.js app router
+│   ├── components/       # React components
+│   ├── lib/              # Utility functions
+│   ├── actions/          # Server actions
+│   ├── sanity/           # Sanity configuration
+│   ├── types/            # TypeScript type definitions
+│   └── content/          # Content files (MDX, etc.)
+├── sanity/               # Sanity Studio configuration
+├── public/               # Static assets
+└── ...config files
+```
+
+## Building for Production
+
+```bash
+# Build the Next.js application
+npm run build
+
+# Start the production server
+npm start
+```
+
+## Deployment
+
+The application is configured for deployment on Vercel:
+
+```bash
+npm run build
+```
+
+This command will build the Next.js application.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Sanity Documentation](https://www.sanity.io/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the terms of the license included in the repository.

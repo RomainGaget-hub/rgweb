@@ -1,11 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import RGWEB_LOGO_WHITE from '@/public/images/logo/White logo - no background.svg';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from './ThemeToggle';
+import { useTheme } from 'next-themes';
 
 const links = [
 	{ href: '/', label: 'Home' },
@@ -16,6 +18,20 @@ const links = [
 
 const Header: React.FC = () => {
 	const pathname = usePathname();
+	const { theme, resolvedTheme } = useTheme();
+	const [mounted, setMounted] = useState(false);
+
+	// Ensure the component is mounted on the client before rendering theme-dependent elements
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	// Determine the logo class based on theme
+	const logoClass = mounted
+		? theme === 'dark' || resolvedTheme === 'dark'
+			? 'opacity-100'
+			: 'opacity-70 invert filter'
+		: 'opacity-100'; // Default to visible in dark mode during initial load
 
 	return (
 		<header className='bg-background py-4 text-foreground'>
@@ -32,12 +48,13 @@ const Header: React.FC = () => {
 								alt='RGWEB'
 								width={60}
 								height={60}
+								className={logoClass}
 							/>
 						</Link>
 					</div>
 
 					{/* Navigation Links */}
-					<div className='flex flex-row items-center justify-center lg:col-span-9 lg:flex-row lg:justify-end lg:space-x-6 lg:space-y-0'>
+					<div className='flex flex-row items-center justify-center space-x-4 lg:col-span-9 lg:flex-row lg:justify-end lg:space-x-6 lg:space-y-0'>
 						{links.map(({ href, label }) => (
 							<Link
 								key={`${href}${label}`}
@@ -52,6 +69,9 @@ const Header: React.FC = () => {
 								{label}
 							</Link>
 						))}
+						<div className='flex-shrink-0'>
+							<ThemeToggle />
+						</div>
 					</div>
 				</nav>
 			</div>
