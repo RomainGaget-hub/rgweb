@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { formatDate } from '@/lib/utils';
 import { SanityBlock } from '@/types/sanity';
+import { Calendar, Tag } from 'lucide-react';
 
 interface SanityPostFormatted {
 	_id: string;
@@ -23,26 +24,40 @@ export default function BlogPostPreview({
 	post: SanityPostFormatted;
 }) {
 	return (
-		<Link href={`/blog/${post.slug}`}>
-			<div className='mt-12 flex items-center justify-between'>
-				{/* Content Section */}
-				<div className='flex-1'>
-					<h2 className='mb-2 text-4xl font-bold'>{post.title}</h2>
-					<p className='mb-4 text-muted'>{post.excerpt}</p>
+		<Link href={`/blog/${post.slug}`} className='block'>
+			<div className='flex flex-col'>
+				{/* Title */}
+				<h3 className='mb-3 text-2xl font-bold leading-tight tracking-tight sm:text-3xl'>
+					{post.title}
+				</h3>
 
-					<div className='flex items-center justify-between'>
-						<p className='text-sm text-muted'>{formatDate(post.publishedAt)}</p>
-						<div className='flex items-center gap-2'>
-							{post.categories?.map((category, index) => (
+				{/* Excerpt */}
+				<p className='mb-4 text-sm text-muted sm:text-base'>{post.excerpt}</p>
+
+				{/* Meta information */}
+				<div className='mt-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
+					{/* Date */}
+					<div className='flex items-center text-xs text-muted sm:text-sm'>
+						<Calendar className='mr-1 h-3 w-3 sm:h-4 sm:w-4' />
+						<time dateTime={post.publishedAt}>
+							{formatDate(post.publishedAt)}
+						</time>
+					</div>
+
+					{/* Categories */}
+					{post.categories && post.categories.length > 0 && (
+						<div className='flex flex-wrap gap-2'>
+							{post.categories.map((category, index) => (
 								<span
 									key={index}
-									className='rounded-full bg-secondary px-3 py-1 text-sm text-background'
+									className='bg-primary/10 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium text-primary sm:text-sm'
 								>
+									<Tag className='mr-1 h-3 w-3' />
 									{category}
 								</span>
 							))}
 						</div>
-					</div>
+					)}
 				</div>
 			</div>
 		</Link>

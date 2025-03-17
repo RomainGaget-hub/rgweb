@@ -10,7 +10,7 @@ const Page = async () => {
 
 	return (
 		<div className='container mx-auto py-12'>
-			<div className='container mx-auto flex max-w-5xl flex-col items-start justify-center px-4'>
+			<div className='container mx-auto flex max-w-5xl flex-col items-start justify-center px-5 sm:px-6 md:px-8'>
 				<h1 className='mb-8 text-6xl font-bold text-primary'>RG BLOG</h1>
 				<p className='mb-8 text-lg text-muted'>
 					Explore in-depth articles and tutorials, sharing insights and

@@ -2,7 +2,7 @@ import { getPostBySlug } from '@/lib/sanity';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react';
-import { ArrowLeftIcon, CalendarIcon, PersonIcon } from '@radix-ui/react-icons';
+import { ArrowLeftIcon, PersonIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 import { formatDate } from '@/lib/utils';
 import SanityContent from '@/components/SanityContent';
@@ -17,70 +17,81 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 	const { title, publishedAt, mainImage, content, excerpt } = post;
 
 	return (
-		<div className='min-h-screen bg-gradient-to-b from-background to-background'>
-			{/* Hero section with image and overlay */}
-			{mainImage && (
-				<div className='relative h-[50vh] w-full'>
-					<div className='absolute inset-0 z-10 bg-black bg-opacity-50' />
-					<Image
-						src={mainImage}
-						alt={title || ''}
-						className='object-cover'
-						fill
-						priority
-						quality={90}
-					/>
-					<div className='absolute inset-0 z-20 flex items-center justify-center p-6'>
-						<div className='max-w-4xl text-center'>
-							<h1 className='mb-4 text-4xl font-bold leading-tight text-white md:text-6xl'>
-								{title}
-							</h1>
-							{excerpt && (
-								<p className='mx-auto max-w-2xl text-lg text-white text-opacity-80 md:text-xl'>
-									{excerpt}
-								</p>
-							)}
-						</div>
-					</div>
-				</div>
-			)}
-
-			<div className='container mx-auto max-w-4xl px-4 py-12'>
+		<div className='min-h-screen bg-background'>
+			<div className='mx-auto max-w-3xl px-5 py-8 sm:px-6 md:px-8'>
 				{/* Back button */}
 				<Link
 					href='/blog'
-					className='mb-8 inline-flex items-center gap-2 rounded-full bg-primary bg-opacity-10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:bg-opacity-20'
+					className='mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted transition-all hover:text-primary'
 				>
 					<ArrowLeftIcon className='h-4 w-4' />
 					<span>Back to all posts</span>
 				</Link>
 
-				{/* Meta information */}
-				<div className='mb-12 flex items-center gap-6 border-b border-muted border-opacity-20 pb-6 text-sm text-muted'>
-					<div className='flex items-center gap-2'>
-						<PersonIcon className='h-4 w-4' />
-						<span>Romain Gaget</span>
-					</div>
-					<div className='flex items-center gap-2'>
-						<CalendarIcon className='h-4 w-4' />
-						<time dateTime={publishedAt}>{formatDate(publishedAt ?? '')}</time>
-					</div>
-				</div>
+				{/* Article header */}
+				<header className='mb-10'>
+					<h1 className='mb-4 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl'>
+						{title}
+					</h1>
 
-				{/* If no hero image, show title here */}
-				{!mainImage && (
-					<header className='mb-12'>
-						<h1 className='mb-4 text-4xl font-bold text-primary md:text-5xl'>
-							{title}
-						</h1>
-						{excerpt && <p className='text-xl text-muted'>{excerpt}</p>}
-					</header>
+					{excerpt && (
+						<p className='mb-6 text-xl leading-relaxed text-muted'>{excerpt}</p>
+					)}
+
+					{/* Author and date info */}
+					<div className='border-muted/10 mb-8 flex items-center gap-4 border-b pb-8'>
+						<div className='bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full'>
+							<PersonIcon className='h-5 w-5 text-primary' />
+						</div>
+						<div>
+							<div className='font-medium text-foreground'>Romain Gaget</div>
+							<div className='flex items-center gap-2 text-sm text-muted'>
+								<time dateTime={publishedAt}>
+									{formatDate(publishedAt ?? '')}
+								</time>
+								<span>·</span>
+								<span>5 min read</span>
+							</div>
+						</div>
+					</div>
+				</header>
+
+				{/* Featured image */}
+				{mainImage && (
+					<div className='mb-10 overflow-hidden rounded-lg'>
+						<div className='relative aspect-[16/9] w-full'>
+							<Image
+								src={mainImage}
+								alt={title || ''}
+								className='object-cover'
+								fill
+								priority
+								quality={95}
+							/>
+						</div>
+					</div>
 				)}
 
 				{/* Content */}
-				<article className='light:bg-white light:bg-opacity-90 rounded-xl p-6 shadow-lg backdrop-blur-sm dark:bg-background dark:bg-opacity-50 md:p-8'>
+				<article className='prose prose-lg mx-auto max-w-none'>
 					<SanityContent content={content} />
 				</article>
+
+				{/* Footer with share or related posts */}
+				<div className='border-muted/10 mt-16 border-t pt-8'>
+					<div className='flex flex-col items-center justify-center text-center'>
+						<h3 className='mb-4 text-lg font-medium'>Enjoyed this article?</h3>
+						<p className='mb-6 text-muted'>
+							Check out more posts on the blog or follow me on social media.
+						</p>
+						<Link
+							href='/blog'
+							className='hover:bg-primary/90 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2 text-sm font-medium text-primary-foreground transition-all'
+						>
+							Explore more articles
+						</Link>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

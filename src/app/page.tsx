@@ -3,7 +3,7 @@ import HomeIntro from '@/components/HomeHero';
 
 const Home = () => {
 	return (
-		<section>
+		<section className='mx-auto'>
 			<div>
 				<HomeIntro />
 				<BlogPreview />

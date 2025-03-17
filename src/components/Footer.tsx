@@ -39,9 +39,9 @@ const navigation = [
 
 export default function Footer() {
 	return (
-		<footer className='py-8'>
-			<div className='container max-w-3xl'>
-				<div className='md:flex md:items-center md:justify-between'>
+		<footer className='bg-background py-6 text-foreground'>
+			<div className='container mx-auto px-5 sm:px-6 md:px-8'>
+				<div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
 					<div className='flex justify-center space-x-6 md:order-2'>
 						{navigation.map((item) => (
 							<a
@@ -57,7 +57,7 @@ export default function Footer() {
 						))}
 					</div>
 					<div className='mt-8 md:order-1 md:mt-0'>
-						<p className='text-center text-xs leading-5 text-muted-foreground'>
+						<p className='text-muted-foreground text-center text-xs leading-5'>
 							&copy; {new Date().getFullYear()} RGWEB. All rights reserved.
 						</p>
 					</div>

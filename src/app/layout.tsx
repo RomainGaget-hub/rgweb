@@ -38,7 +38,7 @@ export default function RootLayout({
 				<Providers>
 					<PreviewBanner />
 					<Header />
-					<main className='grow'>{children}</main>
+					<main className='grow px-4 sm:px-6 md:px-8'>{children}</main>
 					<Footer />
 				</Providers>
 			</body>

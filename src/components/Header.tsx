@@ -34,10 +34,10 @@ const Header: React.FC = () => {
 		: 'opacity-100'; // Default to visible in dark mode during initial load
 
 	return (
-		<header className='bg-background py-4 text-foreground'>
-			<div className='container mx-auto px-4 sm:px-[80px]'>
+		<header className='bg-background py-2 text-foreground sm:py-4'>
+			<div className='container mx-auto px-5 sm:px-6 md:px-8 lg:px-[80px]'>
 				<nav
-					className='grid grid-cols-1 items-center gap-4 text-center lg:grid-cols-12 lg:gap-0 lg:text-left'
+					className='grid grid-cols-1 items-center gap-2 text-center lg:grid-cols-12 lg:gap-0 lg:text-left'
 					aria-label='Global'
 				>
 					{/* Logo Section */}
@@ -46,21 +46,21 @@ const Header: React.FC = () => {
 							<Image
 								src={RGWEB_LOGO_WHITE}
 								alt='RGWEB'
-								width={60}
-								height={60}
-								className={logoClass}
+								width={40}
+								height={40}
+								className={cn('sm:h-[60px] sm:w-[60px]', logoClass)}
 							/>
 						</Link>
 					</div>
 
 					{/* Navigation Links */}
-					<div className='flex flex-row items-center justify-center space-x-4 lg:col-span-9 lg:flex-row lg:justify-end lg:space-x-6 lg:space-y-0'>
+					<div className='flex flex-row items-center justify-center space-x-2 sm:space-x-4 lg:col-span-9 lg:flex-row lg:justify-end lg:space-x-6 lg:space-y-0'>
 						{links.map(({ href, label }) => (
 							<Link
 								key={`${href}${label}`}
 								href={href}
 								className={cn(
-									'rounded-md px-4 py-2 transition-all duration-200',
+									'rounded-md px-2 py-1 text-sm transition-all duration-200 sm:px-4 sm:py-2 sm:text-base',
 									pathname === href
 										? 'bg-primary font-medium text-primary-foreground'
 										: 'text-foreground hover:bg-primary hover:text-primary-foreground'
