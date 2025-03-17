@@ -40,7 +40,7 @@ export default function BlogSearch({
 			return sortOrder === 'latest' ? dateB - dateA : dateA - dateB;
 		});
 		setPosts(sortedPosts);
-	}, [sortOrder]);
+	}, [sortOrder, posts]);
 
 	const handleSearch = async () => {
 		try {

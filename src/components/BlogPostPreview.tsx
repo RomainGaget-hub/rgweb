@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { formatDate } from '@/lib/utils';
 import { SanityBlock } from '@/types/sanity';
 import { Calendar, Tag, ArrowRight } from 'lucide-react';
@@ -86,13 +87,16 @@ export default function BlogPostPreview({
 				{/* Image (if available) - shown on the right */}
 				{post.imagePath && (
 					<div className='h-48 w-full shrink-0 overflow-hidden rounded-lg md:h-36 md:w-48 lg:h-48 lg:w-64'>
-						<img
+						<Image
 							src={post.imagePath}
 							alt={post.title}
+							width={300}
+							height={200}
 							className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
 							onError={(e) => {
 								// Replace with a placeholder if image fails to load
-								(e.target as HTMLImageElement).src =
+								const imgElement = e.currentTarget as HTMLImageElement;
+								imgElement.src =
 									'https://via.placeholder.com/300x200?text=No+Image';
 							}}
 						/>
