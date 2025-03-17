@@ -22,18 +22,20 @@ async function hashPassword(password: string) {
 }
 
 export function formatDate(date: string) {
-	console.log('Date string received:', date);
 	if (!date) return 'No date';
 
-	const parsedDate = new Date(date);
-	if (isNaN(parsedDate.getTime())) {
-		console.log('Invalid date detected:', date);
-		return 'Invalid date';
-	}
+	try {
+		const parsedDate = new Date(date);
+		if (isNaN(parsedDate.getTime())) {
+			return 'Invalid date';
+		}
 
-	return parsedDate.toLocaleDateString('en-US', {
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric',
-	});
+		return parsedDate.toLocaleDateString('en-US', {
+			day: 'numeric',
+			month: 'long',
+			year: 'numeric',
+		});
+	} catch {
+		return 'Error formatting date';
+	}
 }

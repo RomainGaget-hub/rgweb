@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import BlogPostPreview from './BlogPostPreview';
 import { SanityPost, SanityCategory } from '@/types/sanity';
@@ -31,16 +31,27 @@ export default function BlogSearch({
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const postsRef = useRef<SanityPost[]>(posts);
 
-	// Apply sorting to posts
+	// Update the ref whenever posts change
 	useEffect(() => {
-		const sortedPosts = [...posts].sort((a, b) => {
+		postsRef.current = posts;
+	}, [posts]);
+
+	// Apply sorting to posts when sortOrder changes
+	useEffect(() => {
+		const currentPosts = postsRef.current;
+		const sortedPosts = [...currentPosts].sort((a, b) => {
 			const dateA = new Date(a.publishedAt).getTime();
 			const dateB = new Date(b.publishedAt).getTime();
 			return sortOrder === 'latest' ? dateB - dateA : dateA - dateB;
 		});
-		setPosts(sortedPosts);
-	}, [sortOrder, posts]);
+
+		// Only update if the sort actually changed something
+		if (JSON.stringify(sortedPosts) !== JSON.stringify(currentPosts)) {
+			setPosts(sortedPosts);
+		}
+	}, [sortOrder]);
 
 	const handleSearch = async () => {
 		try {
