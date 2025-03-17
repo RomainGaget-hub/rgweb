@@ -30,12 +30,14 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 
 				{/* Article header */}
 				<header className='mb-10'>
-					<h1 className='mb-4 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl'>
+					<h1 className='mb-4 text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl'>
 						{title}
 					</h1>
 
 					{excerpt && (
-						<p className='mb-6 text-xl leading-relaxed text-muted'>{excerpt}</p>
+						<p className='mb-6 text-base leading-relaxed text-muted sm:text-lg md:text-xl'>
+							{excerpt}
+						</p>
 					)}
 
 					{/* Author and date info */}
@@ -80,7 +82,9 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 				{/* Footer with share or related posts */}
 				<div className='border-muted/10 mt-16 border-t pt-8'>
 					<div className='flex flex-col items-center justify-center text-center'>
-						<h3 className='mb-4 text-lg font-medium'>Enjoyed this article?</h3>
+						<h3 className='mb-4 text-base font-medium sm:text-lg'>
+							Enjoyed this article?
+						</h3>
 						<p className='mb-6 text-muted'>
 							Check out more posts on the blog or follow me on social media.
 						</p>

@@ -37,22 +37,22 @@ const components: PortableTextComponents = {
 	},
 	block: {
 		h1: ({ children }) => (
-			<h1 className='mb-6 mt-16 text-3xl font-bold leading-tight tracking-tight text-primary sm:text-4xl'>
+			<h1 className='mb-6 mt-16 text-2xl font-bold leading-tight tracking-tight text-primary sm:text-3xl md:text-4xl'>
 				{children}
 			</h1>
 		),
 		h2: ({ children }) => (
-			<h2 className='mb-5 mt-12 text-2xl font-bold leading-tight tracking-tight text-primary sm:text-3xl'>
+			<h2 className='mb-5 mt-12 text-xl font-bold leading-tight tracking-tight text-primary sm:text-2xl md:text-3xl'>
 				{children}
 			</h2>
 		),
 		h3: ({ children }) => (
-			<h3 className='mb-4 mt-8 text-xl font-bold leading-tight text-primary sm:text-2xl'>
+			<h3 className='mb-4 mt-8 text-lg font-bold leading-tight text-primary sm:text-xl md:text-2xl'>
 				{children}
 			</h3>
 		),
 		h4: ({ children }) => (
-			<h4 className='mb-4 mt-6 text-lg font-semibold leading-tight text-primary'>
+			<h4 className='mb-4 mt-6 text-base font-semibold leading-tight text-primary sm:text-lg'>
 				{children}
 			</h4>
 		),

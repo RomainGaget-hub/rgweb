@@ -82,30 +82,33 @@ export async function getAllTags() {
 	return await getClient().fetch(query);
 }
 
-export async function searchPosts(query: string = '', tagId?: string) {
+export async function searchPosts(query: string = '', category?: string) {
 	let filter = '';
 	const params: Record<string, string> = {};
 
-	if (query && tagId) {
-		filter = `&& (title match $query || excerpt match $query) && $tagId in tags[]._ref`;
+	if (query && category) {
+		filter = `&& (title match $query || excerpt match $query) && $category in categories[]->title`;
 		params.query = `*${query}*`;
-		params.tagId = tagId;
+		params.category = category;
 	} else if (query) {
 		filter = `&& (title match $query || excerpt match $query)`;
 		params.query = `*${query}*`;
-	} else if (tagId) {
-		filter = `&& $tagId in tags[]._ref`;
-		params.tagId = tagId;
+	} else if (category) {
+		filter = `&& $category in categories[]->title`;
+		params.category = category;
 	}
 
 	return getClient().fetch(
 		`*[_type == "post" ${filter}] | order(publishedAt desc) {
 		_id,
 		title,
-		slug,
+		"slug": slug.current,
 		excerpt,
-		"mainImage": mainImage.asset->url,
+		content,
+		"imagePath": mainImage.asset->url,
 		publishedAt,
+		"authorName": author->name,
+		"categories": categories[]->title,
 		"tags": tags[]->{ _id, name }
 	}`,
 		params

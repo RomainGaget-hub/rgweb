@@ -17,12 +17,12 @@ export default function About() {
 				<div className='container relative z-10 mx-auto px-5 sm:px-6 md:px-8'>
 					<div className='mx-auto max-w-4xl text-center'>
 						{/* Large greeting */}
-						<h1 className='mb-6 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl'>
+						<h1 className='mb-6 text-3xl font-bold tracking-tight sm:text-4xl md:text-6xl lg:text-7xl'>
 							Hello, I&apos;m <span className='text-primary'>Romain Gaget</span>
 						</h1>
 
 						{/* Subtitle */}
-						<h2 className='text-foreground/80 mx-auto mb-8 max-w-2xl text-xl font-medium sm:text-2xl'>
+						<h2 className='text-foreground/80 mx-auto mb-8 max-w-2xl text-lg font-medium sm:text-xl md:text-2xl'>
 							Digital Engineering Manager | Web Developer | Tech Enthusiast
 						</h2>
 
@@ -116,7 +116,7 @@ export default function About() {
 					<div className='flex flex-col gap-12 sm:gap-20'>
 						{/* What I Do Section */}
 						<section className='flex flex-col gap-4 sm:gap-6'>
-							<h2 className='text-3xl font-bold text-primary sm:text-4xl'>
+							<h2 className='text-2xl font-bold text-primary sm:text-3xl md:text-4xl'>
 								What I Do
 							</h2>
 							<div className='space-y-3 text-base text-foreground sm:space-y-4 sm:text-lg'>
@@ -139,7 +139,7 @@ export default function About() {
 
 						{/* My Passions Section */}
 						<section className='flex flex-col gap-4 sm:gap-6'>
-							<h2 className='text-3xl font-bold text-primary sm:text-4xl'>
+							<h2 className='text-2xl font-bold text-primary sm:text-3xl md:text-4xl'>
 								My Passions
 							</h2>
 							<p className='text-base text-foreground sm:text-lg'>
@@ -154,7 +154,7 @@ export default function About() {
 
 						{/* My Stack Section */}
 						<section className='flex flex-col gap-4 sm:gap-6'>
-							<h2 className='text-3xl font-bold text-primary sm:text-4xl'>
+							<h2 className='text-2xl font-bold text-primary sm:text-3xl md:text-4xl'>
 								My Main Stack
 							</h2>
 							<div className='grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4'>
@@ -173,7 +173,7 @@ export default function About() {
 
 						{/* Beyond Work Section */}
 						<section className='flex flex-col gap-4 sm:gap-6'>
-							<h2 className='text-3xl font-bold text-primary sm:text-4xl'>
+							<h2 className='text-2xl font-bold text-primary sm:text-3xl md:text-4xl'>
 								Beyond Work
 							</h2>
 							<p className='mb-3 text-base text-foreground sm:mb-4 sm:text-lg'>

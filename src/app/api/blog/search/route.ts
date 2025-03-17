@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
 	// Sanity GROQ Query
 	const sanityQuery = `*[_type == "post" 
-    && ($query == "" || title match $query)
+    && ($query == "" || title match $query || excerpt match $query)
     && ($category == "" || $category in categories[]->title)
   ] | order(publishedAt desc) {
     _id,
@@ -19,20 +19,25 @@ export async function GET(req: NextRequest) {
     "imagePath": mainImage.asset->url,
     publishedAt,
     "authorName": author->name,
-    "categories": categories[]->title
+    "categories": categories[]->title,
+    "tags": tags[]->{ _id, name }
   }`;
 
 	// Fix the params object
-	const params: Record<string, string> = {};
-	if (query) {
-		params.query = `${query}*`;
-	}
-	if (category) {
-		params.category = category;
-	}
+	const params: Record<string, string> = {
+		query: query ? `*${query}*` : '',
+		category: category,
+	};
 
-	// Then use the properly constructed params object
-	const posts = await sanityClient.fetch(sanityQuery, params);
-
-	return NextResponse.json(posts);
+	try {
+		// Fetch posts with the properly constructed params
+		const posts = await sanityClient.fetch(sanityQuery, params);
+		return NextResponse.json(posts);
+	} catch (error) {
+		console.error('Error fetching posts:', error);
+		return NextResponse.json(
+			{ error: 'Failed to fetch posts' },
+			{ status: 500 }
+		);
+	}
 }

@@ -14,12 +14,12 @@ export default function HomeIntro() {
 			<div className='container relative z-10 mx-auto px-5 sm:px-6 md:px-8'>
 				<div className='mx-auto max-w-4xl text-center'>
 					{/* Main heading with gradient effect */}
-					<h1 className='mb-6 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl'>
+					<h1 className='mb-6 text-3xl font-bold tracking-tight sm:text-4xl md:text-6xl lg:text-7xl'>
 						WELCOME TO <span className='text-primary'>RGWEB</span>
 					</h1>
 
 					{/* Subtitle */}
-					<h3 className='text-foreground/80 mx-auto mb-8 max-w-2xl text-xl font-medium sm:text-2xl md:text-3xl'>
+					<h3 className='text-foreground/80 mx-auto mb-8 max-w-2xl text-lg font-medium sm:text-xl md:text-2xl lg:text-3xl'>
 						Ideas That Inspire and Innovate
 					</h3>
 
