@@ -1,7 +1,6 @@
-import { CircleUser, PenLine, Sparkles, ArrowRight } from 'lucide-react';
+import { CircleUser, PenLine } from 'lucide-react';
 import React from 'react';
 import HomeAction from './HomeAction';
-import Link from 'next/link';
 
 export default function HomeIntro() {
 	return (

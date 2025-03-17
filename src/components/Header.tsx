@@ -48,7 +48,10 @@ const Header: React.FC = () => {
 								alt='RGWEB'
 								width={40}
 								height={40}
-								className={cn('sm:h-[60px] sm:w-[60px]', logoClass)}
+								className={cn(
+									'sm:h-[60px] sm:w-[60px] md:h-[70px] md:w-[70px] lg:h-[80px] lg:w-[80px]',
+									logoClass
+								)}
 							/>
 						</Link>
 					</div>
